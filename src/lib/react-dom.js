@@ -5,7 +5,7 @@ function render(vdom, container){
   container.appendChild(node)
 }
 
-function createDomFromVdom(vdom){
+function createDomFromVdom(vdom,){
   let node
   if(typeof vdom === 'string'){
     node = document.createTextNode(vdom)
@@ -13,7 +13,6 @@ function createDomFromVdom(vdom){
     if(typeof vdom.tag === 'function'){
       // let component = new vdom.tag(vdom.attrs)
       let component = getComponent(vdom.tag, vdom.attrs)
-      component.children = vdom.children
       let vnode = component.render()
       node = createDomFromVdom(vnode)
       component.$root = node
@@ -41,13 +40,10 @@ function getComponent(tag, attrs){
 function renderComponent(component){
   let vdom = component.render()
   let node = createDomFromVdom(vdom)
-  let classname = component.props.className
-  classname.split(' ').forEach(classname=>node.classList.add(classname))
   if(component.$root){
     component.$root.parentNode.replaceChild(node, component.$root)
   }
   component.$root = node 
-  component.children.forEach( children => render(children, node) )
 }
 
 function setAttribute(attrs, node){

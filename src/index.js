@@ -48,10 +48,7 @@ class App extends React.Component{
 }
 
 
-let div =  (<App className='wo shi'>
-              <p>hello world!</p>
-              <p id='good'>hello react!</p>
-            </App>)
+let div =  (<div><App/><p>Hello React!</p></div>)
 
 // console.log(div)
 
